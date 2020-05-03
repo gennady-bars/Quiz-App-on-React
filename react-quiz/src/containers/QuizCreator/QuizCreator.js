@@ -4,6 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import { createControl, validate, validateForm } from "../../form/formFrameWork";
 import Input from "../../components/UI/Input/Input";
 import Select from "../../components/UI/Select/Select";
+import axios from '../../axios/axios-quiz'
 
 function createOptionControl(number) {
   return createControl(
@@ -72,7 +73,28 @@ export default class QuizCreator extends Component {
     })
   }
 
-  createQuizHandler = () => {};
+  createQuizHandler = async (e) => {
+
+    try {
+      let response = await axios.post('/quizes.json', this.state.quiz)
+      console.log(response.data);
+      this.setState({
+        quiz: [],
+      isFormValid: false,
+      formControls: createFormControls(),
+      rightAnswerId: 1,
+      })
+      
+    } catch (e) {
+      console.log(e);
+      
+    }
+
+    // axios.post('https://react-quiz-59330.firebaseio.com/quizes.json', this.state.quiz)
+    // .then(response => {
+    //   console.log(response);
+    // }).catch(error => console.log(error))
+  };
 
   onChangeHandler = (value, controlName) => {
     const formControls = { ...this.state.formControls };
@@ -118,7 +140,7 @@ export default class QuizCreator extends Component {
   };
 
   render() {
-    console.log(this.state.quiz)
+    // console.log(this.state.quiz)
     const select = (
       <Select
         label="Выберите правильный ответ"

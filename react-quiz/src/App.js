@@ -14,7 +14,6 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        {/* <Quiz /> */}
         <Switch>
             <Route path='/auth' component={Auth}/>
             <Route path='/quiz-creator' component={QuizCreator}/>
